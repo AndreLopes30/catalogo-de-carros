@@ -1,0 +1,132 @@
+.header {
+  background-color: #800020;
+  color: white;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+}
+
+    .menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+    .menu li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header a {
+      color: rgb(213, 213, 213); 
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .menu a:hover {
+      text-decoration: underline;
+    }
+
+    h3 {
+        text-align: center;
+        font-family: sans-serif;
+        padding-top: 10px;
+    }
+
+      #cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px 50px; /* Espaço horizontal e vertical mais suave */
+  padding: 30px;
+  max-width: 75%;
+  height: 150px;
+  margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+.card {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  background-color: white;
+}
+
+.card img {
+  width: 100%; /* Ocupa toda a largura disponível da div */
+  height: 210px; /* Mantém proporção */
+  max-height: 200px;
+  border-radius: 5px;
+  object-fit: cover; /* Corta imagem suavemente se necessário */
+  margin-bottom: 30px;
+}
+
+
+    * {
+    margin: 0;
+    padding: 0;
+}
+
+  footer {
+    text-align: center;
+    font-size: 9px;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+    background-color: #8e4456;
+}
+
+.preco{
+  color: #cb0b0b;
+  font-weight: bolder;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p{
+  padding: 3px 0px;
+}
+
+.intro {
+  color: rgb(105, 105, 105);
+  font-weight: lighter;
+}
+
+.modelo {
+  font-weight: bolder;
+}
+
+.sort-container {
+  position: relative;
+  display: inline-block;
+}
+
+#sortBtn {
+  padding: 8px 12px;
+  border: none;
+  background-color: #800020; /* vinho do header */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#sortMenu {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: none; /* começa escondido */
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+#sortMenu label {
+  display: block;
+  margin: 5px 0;
+  cursor: pointer;
+}
