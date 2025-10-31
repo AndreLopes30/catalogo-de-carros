@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de carros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <header class="header">
+        <h1 class="origem">GARAGE 24</h1> 
+        <nav class="menu">
+            <ul class="menu">
+                <li><a href="/catalogo">Catálogo</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header> <hr>
+    <main>
+        {% if erro and erro|length > 0 %}
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Ops...',
+    text: '{{ erro }}',
+})
+</script>
+{% endif %}
+
+
+        <h3>Encontre o carro ideal para você</h3>
+        <div class="cards">
+            <div class="card">
+                <img src="/static/IMG/civic.webp" alt="">
+                <p>Honda Civic 2020</p>
+                <span><p>Honda</p></span>
+                <p>45.000 km</p>
+                <p style="color: red;">R$ 82.000,00</p>
+                <p>2020</p>
+            </div>
+            <div class="card">
+                <img src="/static/IMG/golf.webp" alt="">
+                <p>Volkswagen Golf 2019</p>
+                <p>Volkswagen</p>
+                <p>52.300 km</p>
+                <p style="color: red;">R$ 75.900,00</p>
+                <p>2019</p>
+            </div>
+            <div class="card">
+                <img src="/static/IMG/onix.webp" alt="">
+                <p>Chevrolet Onix 2021</p>
+                <p>Chevrolet</p>
+                <p>31.800 km</p>
+                <p style="color: red;">R$ 68.500,00</p>
+                <p>2021</p>
+            </div>
+        </div>
+        <form action="/catalogo" method="post" id="form">
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo" id = "modelo" required><br>
+
+        <label for="ano">Ano:</label>
+        <input type="text" name="ano" id = "ano" required><br>
+
+        <label for="preco">Preço:</label>
+        <input type="text" name="preco" id = "preco" required><br>
+
+        <label for="imagem">Link da imagem:</label>
+        <input type="text" name="imagem" id = "imagem" required><br><br>
+
+        <button type="submit" id="btn">Cadastrar</button>
+    </form>
+
+    </main>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+<footer>Garage 24 © 2025 — Projeto demonstrativo</footer>
+</html>
