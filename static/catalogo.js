@@ -26,29 +26,3 @@ filtro.addEventListener('keydown', function(e) {
     }
 });
 
-// pegar elementos
-const sortBtn = document.getElementById("sortBtn");
-const sortMenu = document.getElementById("sortMenu");
-
-// abrir/fechar menu
-sortBtn.addEventListener("click", () => {
-  sortMenu.style.display = (sortMenu.style.display === "block") ? "none" : "block";
-});
-
-// fechar se clicar fora
-document.addEventListener("click", (e) => {
-  if (!sortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
-    sortMenu.style.display = "none";
-  }
-});
-
-// capturar escolha
-document.querySelectorAll("#sortMenu input").forEach((radio) => {
-  radio.addEventListener("change", (e) => {
-    const valor = e.target.value;
-    console.log("Ordenar por:", valor);
-
-    // aqui depois a gente chama a função que reordena os cards
-    // tipo: ordenarCards(valor);
-  });
-});

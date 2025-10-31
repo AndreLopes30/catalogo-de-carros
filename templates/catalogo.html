@@ -24,19 +24,6 @@
     <input type="text" placeholder="Buscar pelo modelo" id="filtro">
 </form>
 
-<div class="sort-container">
-  <button id="sortBtn">🔽 Ordenar</button>
-
-  <div id="sortMenu" class="hidden">
-    <label><input type="radio" name="sort" value="az"> Alfabético (A–Z)</label><br>
-    <label><input type="radio" name="sort" value="za"> Alfabético (Z–A)</label><br>
-    <label><input type="radio" name="sort" value="priceAsc"> Preço (menor → maior)</label><br>
-    <label><input type="radio" name="sort" value="priceDesc"> Preço (maior → menor)</label><br>
-    <label><input type="radio" name="sort" value="yearAsc"> Ano (mais velho → mais novo)</label><br>
-    <label><input type="radio" name="sort" value="yearDesc"> Ano (mais novo → mais velho)</label><br>
-  </div>
-</div>
-
 
     <div id="cards">
         {% for carro in carros %}
