@@ -14,7 +14,8 @@ filtro.addEventListener('keydown', function(e) {
 
             if (modelo.includes(busca) || ano.includes(busca) || preco.includes(busca)) {
                 card.style.removeProperty('display');
-            } else {
+            } 
+            else {
                 card.style.display = 'none';
             }
         });
