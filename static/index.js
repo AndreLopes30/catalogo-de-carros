@@ -1,4 +1,3 @@
-
 document.getElementById("form").addEventListener("submit", function(e) {
     let modelo = document.getElementById("modelo").value.trim();
     let ano = parseInt(document.getElementById("ano").value);
@@ -13,4 +12,5 @@ document.getElementById("form").addEventListener("submit", function(e) {
         });
     }
 });
+
 

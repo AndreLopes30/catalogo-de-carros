@@ -256,5 +256,11 @@
         "ano": 1900,
         "preco": 1,
         "imagem": "http://127.0.0.1:5000/static/IMG/golf.webp"
+    },
+    {
+        "modelo": "Camaro",
+        "ano": 1900,
+        "preco": 1,
+        "imagem": "http://127.0.0.1:5000/static/IMG/golf.webp"
     }
 ]
