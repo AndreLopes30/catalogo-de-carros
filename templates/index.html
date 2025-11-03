@@ -20,21 +20,10 @@
         </nav>
     </header> <hr>
     <main>
-        {% if erro and erro|length > 0 %}
-<script>
-Swal.fire({
-    icon: 'error',
-    title: 'Ops...',
-    text: '{{ erro }}',
-})
-</script>
-{% endif %}
-
-
         <h3>Encontre o carro ideal para você</h3>
         <div class="cards">
             <div class="card">
-                <img src="/static/IMG/civic.webp" alt="">
+                <img src="/static/IMG/civic.webp" alt="civic">
                 <p>Honda Civic 2020</p>
                 <span><p>Honda</p></span>
                 <p>45.000 km</p>
@@ -42,7 +31,7 @@ Swal.fire({
                 <p>2020</p>
             </div>
             <div class="card">
-                <img src="/static/IMG/golf.webp" alt="">
+                <img src="/static/IMG/golf.webp" alt="golf">
                 <p>Volkswagen Golf 2019</p>
                 <p>Volkswagen</p>
                 <p>52.300 km</p>
@@ -50,7 +39,7 @@ Swal.fire({
                 <p>2019</p>
             </div>
             <div class="card">
-                <img src="/static/IMG/onix.webp" alt="">
+                <img src="/static/IMG/onix.webp" alt="onix">
                 <p>Chevrolet Onix 2021</p>
                 <p>Chevrolet</p>
                 <p>31.800 km</p>
