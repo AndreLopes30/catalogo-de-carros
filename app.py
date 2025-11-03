@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, send_file
-from fpdf import FPDF
 import sqlite3
 import os
 import io
