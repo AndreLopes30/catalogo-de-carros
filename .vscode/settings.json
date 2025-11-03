@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "carros",
+            "database": "carros.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
