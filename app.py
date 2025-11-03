@@ -13,6 +13,12 @@ def catalogo():
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
 
+    cursor.execute("SELECT modelo, ano, preco, imagem FROM carros")
+    carros = [
+        {'modelo': modelo, 'ano': ano, 'preco': preco, 'imagem': imagem}
+        for modelo, ano, preco, imagem in cursor.fetchall()
+    ]
+
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = int(request.form['ano'])
@@ -20,9 +26,8 @@ def catalogo():
         imagem = request.form['imagem']
 
         if modelo == '' or ano < 1900 or ano > 2025 or preco < 0:
+            conn.close()
             return render_template('index.html', carros=carros, erro="Algum dos campos inválido.")
-
-            
 
         cursor.execute("""
             INSERT INTO carros (modelo, ano, preco, imagem)
@@ -32,10 +37,6 @@ def catalogo():
         conn.close()
         return redirect('/catalogo')
 
-    cursor.execute("SELECT modelo, ano, preco, imagem FROM carros")
-    carros = [
-    {'modelo': modelo, 'ano': ano, 'preco': preco, 'imagem': imagem}
-    for modelo, ano, preco, imagem in cursor.fetchall()]
     conn.close()
     return render_template('catalogo.html', carros=carros)
 
