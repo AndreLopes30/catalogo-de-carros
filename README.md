@@ -1,6 +1,5 @@
 # 🚗 API Catálogo de Carros
 
-🔗 [Acesse o projeto online](catalogo-de-carros-production-bfe6.up.railway.app)
 
 Projeto de Backend desenvolvido em Python para gerenciamento e controle de frota de veículos. O objetivo deste projeto é demonstrar a aplicação de boas práticas de desenvolvimento, arquitetura REST e containerização.
 
