@@ -1,9 +1,8 @@
-# 🚘 Catálogo de Carros
+# 🚗 API Catálogo de Carros
 
 🔗 [Acesse o projeto online](catalogo-de-carros-production-bfe6.up.railway.app)
 
-
-Aplicação web que exibe um catálogo de carros com filtros e busca, desenvolvida com HTML, CSS, JavaScript e Python (Flask).
+Projeto de Backend desenvolvido em Python para gerenciamento e controle de frota de veículos. O objetivo deste projeto é demonstrar a aplicação de boas práticas de desenvolvimento, arquitetura REST e containerização.
 
 ---
 
@@ -12,21 +11,39 @@ Aplicação web que exibe um catálogo de carros com filtros e busca, desenvolvi
 <img width="1900" height="945" alt="image" src="https://github.com/user-attachments/assets/66e82c3d-c6b7-48f4-aed6-e9600440990f" />
 
 
-
 ---
 
 ## 🛠️ Tecnologias utilizadas
 
-- HTML5
-- CSS3
-- JavaScript
-- Python (Flask)
+## 🛠 Tecnologias Utilizadas
+* **Linguagem:** Python 3.9
+* **Framework:** [Flask]
+* **Banco de Dados:** [SQLite]
+* **Containerização:** Docker
+* **Versionamento:** Git
 
 ---
 
 ## 📄 Descrição
 
 Este projeto permite visualizar uma lista de carros com informações como marca, modelo e ano. O frontend é responsivo e interativo, enquanto o backend em Flask fornece os dados via API.
+
+---
+
+## 🚀 Funcionalidades
+* Cadastro de novos veículos (Create)
+* Listagem e filtragem de veículos (Read)
+* Atualização de dados da frota (Update)
+* Remoção de veículos (Delete)
+
+---
+
+## 📦 Como rodar o projeto
+
+### Via Docker (Recomendado)
+```bash
+docker build -t catalogo-carros .
+docker run -p 5000:5000 catalogo-carros
 
 ---
 
