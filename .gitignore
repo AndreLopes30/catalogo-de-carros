@@ -1,0 +1,37 @@
+# Byte-compiled / cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment (se usar local)
+venv/
+env/
+.venv/
+
+# SQLite database local
+*.db
+*.sqlite
+*.sqlite3
+
+# Database file no git
+database.db
+
+# Python logs and temp
+*.log
+*.tmp
+*.temp
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Environment variables (segredos)
+.env
+.env.*
