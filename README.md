@@ -1,7 +1,7 @@
 # 🚗 API Catálogo de Carros
 
-
-Projeto de Backend desenvolvido em Python para gerenciamento e controle de frota de veículos. O objetivo deste projeto é demonstrar a aplicação de boas práticas de desenvolvimento, arquitetura REST e containerização.
+Projeto de backend desenvolvido em **Python** para gerenciamento e controle de frota de veículos.  
+O objetivo deste projeto é demonstrar a aplicação de **boas práticas**, arquitetura **REST** e **containerização** com Docker.
 
 ---
 
@@ -14,26 +14,33 @@ Projeto de Backend desenvolvido em Python para gerenciamento e controle de frota
 
 ## 🛠️ Tecnologias utilizadas
 
-## 🛠 Tecnologias Utilizadas
-* **Linguagem:** Python 3.9
-* **Framework:** [Flask]
-* **Banco de Dados:** [SQLite]
-* **Containerização:** Docker
-* **Versionamento:** Git
+| Tecnologia | Uso no projeto |
+|------------|----------------|
+| 🐍 Python | Linguagem principal |
+| 🚀 Flask | Framework web para a API |
+| 🗃️ SQLite | Banco de dados leve (local) |
+| 🐋 Docker | Containerização |
+| 🧪 (Opcional) Pytest | Testes automatizados |
+| 📦 Flask-RESTful | Organização de rotas REST |
 
 ---
 
 ## 📄 Descrição
 
-Este projeto permite visualizar uma lista de carros com informações como marca, modelo e ano. O frontend é responsivo e interativo, enquanto o backend em Flask fornece os dados via API.
+Este projeto permite visualizar e gerenciar uma lista de carros com informações como marca, modelo e ano.  
+O backend em Flask fornece os dados via API que pode ser consumida por um frontend ou ferramentas externas.
 
 ---
 
 ## 🚀 Funcionalidades
-* Cadastro de novos veículos (Create)
-* Listagem e filtragem de veículos (Read)
-* Atualização de dados da frota (Update)
-* Remoção de veículos (Delete)
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | `/carros` | Adiciona um novo carro |
+| GET | `/carros` | Lista todos os carros |
+| GET | `/carros/<id>` | Detalha um carro por ID |
+| PUT | `/carros/<id>` | Atualiza um carro por ID |
+| DELETE | `/carros/<id>` | Remove um carro por ID |
 
 ---
 
@@ -41,9 +48,7 @@ Este projeto permite visualizar uma lista de carros com informações como marca
 
 ### Via Docker (Recomendado)
 ```bash
-docker build -t catalogo-carros .
-docker run -p 5000:5000 catalogo-carros
-
+docker-compose up --build
 ---
 
 ## 🚀 Como executar localmente
