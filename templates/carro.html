@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/carro.css"> 
+</head>
+<body>
+    <header class="header">
+        <h1 class="origem">GARAGE 24</h1> 
+        <nav class="menu">
+            <ul class="menu">
+                <li><a href="/catalogo">Catálogo</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="/">Voltar ao Início</a></li>
+                <li><a href="/relatorio" target="_blank">Relatório PDF</a></li>
+            </ul>
+        </nav>
+    </header> 
+    <hr>   
+
+    <div id="carro">
+  <div class="card-detalhe">
+    <img src="{{ carro.imagem }}" alt="{{ carro.modelo }}">
+
+    <div class="card-info">
+      <h1>{{ carro.modelo }}</h1>
+      <p class="ano">Ano: {{ carro.ano }}</p>
+      <p class="preco">R$ {{ carro.preco }}</p>
+
+      <a href="/catalogo">Voltar ao catálogo</a>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

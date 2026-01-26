@@ -26,19 +26,21 @@
 </form>
 
 
-    <div id="cards">
-        {% for carro in carros %}
-            <div class="card">
-                <img src="{{ carro.imagem }}" alt="carro">
-                <p class="modelo">{{ carro.modelo }}</p>
-                <p class="ano">{{ carro.ano }}</p>
-                <p class="intro">A partir de:</p>
-                <p class="preco">Por: R$ {{ carro.preco }},00</p>
-            </div>
-        {% else %}
-            <p>Nenhum carro cadastrado ainda.</p>
-        {% endfor %}
-    </div>
+ <div id="cards">
+  {% for carro in carros %}
+    <a href="/carro/{{ carro.id }}" class="card-link">
+      <div class="card">
+        <img src="{{ carro.imagem }}" alt="Carro {{ carro.modelo }}">
+        <p class="modelo">{{ carro.modelo }}</p>
+        <p class="intro">A partir de:</p>
+        <p class="preco">Por: R$ {{ carro.preco }},00</p>
+        <button class="btn">Inspecionar</button>
+      </div>
+    </a>
+  {% else %}
+    <p>Nenhum carro cadastrado ainda.</p>
+  {% endfor %}
+</div>
 
     <script src="/static/js/catalogo.js"></script>
 </body>
