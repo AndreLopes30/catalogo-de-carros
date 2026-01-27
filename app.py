@@ -1,9 +1,19 @@
-from flask import Flask, render_template, request, redirect, send_file
+from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
-import io
 
 app = Flask(__name__)
+
+def normalizar_preco(valor_str):
+    valor_str = valor_str.strip()
+    valor_str = valor_str.replace('.', '')
+    valor_str = valor_str.replace(',', '.')
+
+    return float(valor_str)
+
+def formatar_preco(valor):
+    return f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -14,26 +24,31 @@ def catalogo():
     cursor = conn.cursor()
 
     cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros")
-    carros = [
-    {
-        'id': id,
-        'modelo': modelo,
-        'ano': ano,
-        'preco': preco,
-        'imagem': imagem
-    }
-    for id, modelo, ano, preco, imagem in cursor.fetchall()
-]
+    carros = []
+    for id, modelo, ano, preco, imagem in cursor.fetchall():
+        carros.append({
+            'id': id,
+            'modelo': modelo,
+            'ano': ano,
+            'preco': formatar_preco(preco),
+            'imagem': imagem
+        })
 
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = int(request.form['ano'])
-        preco = float(request.form['preco'])
+
+        try:
+            preco = normalizar_preco(request.form['preco'])
+        except ValueError:
+            conn.close()
+            return redirect('/')
+
         imagem = request.form['imagem']
 
         if modelo == '' or ano < 1900 or ano > 2026 or preco < 0:
             conn.close()
-            return render_template('index.html', carros=carros, erro="Algum dos campos inválido.")
+            return redirect('/')
 
         cursor.execute("""
             INSERT INTO carros (modelo, ano, preco, imagem)
@@ -67,11 +82,21 @@ def infos(id):
         'id': row[0],
         'modelo': row[1],
         'ano': row[2],
-        'preco': row[3],
+        'preco': formatar_preco(row[3]),
         'imagem': row[4]
     }
 
     return render_template('carro.html', carro=carro)
+
+@app.route('/carros/<int:id>/delete', methods=['POST'])
+def delete(id):
+    conn = sqlite3.connect('carros.db')
+    cursor = conn.cursor()
+
+    cursor.execute("""delete from carros where id = ? """ ,(id,))
+    conn.commit()
+    conn.close()
+    return redirect('/catalogo')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

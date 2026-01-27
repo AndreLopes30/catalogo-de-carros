@@ -49,3 +49,22 @@ lixo.addEventListener("click", function(e) {
         card.style.removeProperty('display');
     });
 });
+
+function confirmarExclusao(id, modelo) {
+    Swal.fire({
+        title: 'Excluir ' + modelo + '?',
+        text: "Esta ação não poderá ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d11a2a',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar',
+        background: '#f8f9fa',
+        borderRadius: '15px'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    })
+}
