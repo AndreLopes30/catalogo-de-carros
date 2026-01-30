@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 
@@ -23,7 +23,16 @@ def catalogo():
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros")
+    pagina = request.args.get('pagina', 1, type=int)
+    por_pagina = 12
+    offset = (pagina - 1) * por_pagina
+
+    cursor.execute("SELECT COUNT(*) FROM carros")
+    total_carros = cursor.fetchone()[0]
+    total_paginas = (total_carros + por_pagina - 1) // por_pagina
+
+    cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros LIMIT ? OFFSET ?", (por_pagina, offset))
+    
     carros = []
     for id, modelo, ano, preco, imagem in cursor.fetchall():
         carros.append({
@@ -59,7 +68,10 @@ def catalogo():
         return redirect('/catalogo')
 
     conn.close()
-    return render_template('catalogo.html', carros=carros)
+    return render_template('catalogo.html', 
+                           carros=carros, 
+                           pagina=pagina, 
+                           total_paginas=total_paginas)
 
 @app.route('/carro/<int:id>')
 def infos(id):
@@ -90,13 +102,13 @@ def infos(id):
 
 @app.route('/carros/<int:id>/delete', methods=['POST'])
 def delete(id):
+    pagina_atual = request.args.get('pagina', 1, type=int)
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
-
-    cursor.execute("""delete from carros where id = ? """ ,(id,))
+    cursor.execute("DELETE FROM carros WHERE id = ?", (id,))
     conn.commit()
     conn.close()
-    return redirect('/catalogo')
+    return redirect(url_for('catalogo', pagina=pagina_atual))
 
 @app.route('/carro/<int:id>/editar', methods=['GET', 'POST'])
 def editar(id):

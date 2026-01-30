@@ -30,16 +30,23 @@
   {% for carro in carros %}
     <div class="card">
     <div style="position: relative;"> 
-        <form id="delete-form-{{ carro.id }}" action="/carros/{{ carro.id }}/delete" method="POST" class="delete-form">
-            <button type="button" class="btn-delete" title="Excluir {{ carro.modelo }}" onclick="confirmarExclusao('{{ carro.id }}', '{{ carro.modelo }}')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                </svg>
-            </button>
-        </form>
+        <form id="delete-form-{{ carro.id }}" 
+      action="/carros/{{ carro.id }}/delete?pagina={{ pagina }}" 
+      method="POST" 
+      class="delete-form">
+    
+    <button type="button" 
+            class="btn-delete" 
+            title="Excluir {{ carro.modelo }}" 
+            onclick="event.stopPropagation(); confirmarExclusao('{{ carro.id }}', '{{ carro.modelo }}')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+        </svg>
+    </button>
+</form>
 
         <a href="/carro/{{ carro.id }}" class="card-link">
             <img src="{{ carro.imagem }}" alt="Carro {{ carro.modelo }}">
@@ -56,6 +63,24 @@
   {% else %}
     <p>Nenhum carro cadastrado ainda.</p>
   {% endfor %}
+
+  </div> 
+
+<div class="paginacao-container">
+    {% if pagina > 1 %}
+        <a href="{{ url_for('catalogo', pagina=pagina-1) }}" class="btn-pag">« Anterior</a>
+    {% else %}
+        <span class="btn-desativado">« Anterior</span>
+    {% endif %}
+
+    <span class="pagina-info">Página {{ pagina }} de {{ total_paginas }}</span>
+
+    {% if pagina < total_paginas %}
+        <a href="{{ url_for('catalogo', pagina=pagina+1) }}" class="btn-pag">Próximo »</a>
+    {% else %}
+        <span class="btn-desativado">Próximo »</span>
+    {% endif %}
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/catalogo.js"></script>
