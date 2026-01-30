@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Carro - {{ carro.modelo }}</title>
+    <link rel="stylesheet" href="/static/css/editar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header class="header">
+        <h1 class="origem">GARAGE 24</h1> 
+        <nav class="menu">
+            <ul class="menu">
+                <li><a href="/catalogo">Catálogo</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="/">Início</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    
+    <main>
+        <h3>✏️ Editar Veículo <span class="edit-badge">Modo Edição</span></h3>
+        
+        <form action="/carro/{{ carro.id }}/editar" method="post" id="form-editar">
+            <img id="image-preview" class="image-preview" src="{{ carro.imagem }}" alt="Preview">
+            
+            <label for="modelo">Modelo:</label>
+            <input type="text" name="modelo" id="modelo" value="{{ carro.modelo }}" 
+                   placeholder="Ex: Honda Civic" required>
+
+            <label for="ano">Ano:</label>
+            <input type="number" name="ano" id="ano" value="{{ carro.ano }}" 
+                   min="1900" max="2026" placeholder="Ex: 2024" required>
+
+            <label for="preco">Preço (R$):</label>
+            <input type="text" name="preco" id="preco" value="{{ carro.preco }}" 
+                   placeholder="Ex: 85000.00" required>
+
+            <label for="imagem">Link da imagem:</label>
+            <input type="url" name="imagem" id="imagem" value="{{ carro.imagem }}" 
+                   placeholder="https://exemplo.com/imagem.jpg" required>
+
+            <div class="btn-container">
+                <button type="submit" id="btn">💾 Salvar Alterações</button>
+                <a href="/carro/{{ carro.id }}" class="btn-cancelar">❌ Cancelar</a>
+            </div>
+        </form>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="{{ url_for('static', filename='js/editar.js') }}"></script>
+    
+    <footer>Garage 24 © 2025 — Projeto demonstrativo</footer>
+</body>
+</html>

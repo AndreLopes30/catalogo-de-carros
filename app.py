@@ -98,6 +98,59 @@ def delete(id):
     conn.close()
     return redirect('/catalogo')
 
+@app.route('/carro/<int:id>/editar', methods=['GET', 'POST'])
+def editar(id):
+    conn = sqlite3.connect('carros.db')
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        modelo = request.form['modelo']
+        ano = int(request.form['ano'])
+        
+        try:
+            preco = normalizar_preco(request.form['preco'])
+        except ValueError:
+            conn.close()
+            return redirect(f'/carro/{id}/editar')
+        
+        imagem = request.form['imagem']
+        
+        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0:
+            conn.close()
+            return redirect(f'/carro/{id}/editar')
+        
+        cursor.execute("""
+            UPDATE carros 
+            SET modelo = ?, ano = ?, preco = ?, imagem = ?
+            WHERE id = ?
+        """, (modelo, ano, preco, imagem, id))
+        
+        conn.commit()
+        conn.close()
+        return redirect(f'/carro/{id}')
+    
+    cursor.execute("""
+        SELECT id, modelo, ano, preco, imagem
+        FROM carros
+        WHERE id = ?
+    """, (id,))
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    if row is None:
+        return "Carro não encontrado", 404
+    
+    carro = {
+        'id': row[0],
+        'modelo': row[1],
+        'ano': row[2],
+        'preco': row[3],
+        'imagem': row[4]
+    }
+    
+    return render_template('editar.html', carro=carro)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)

@@ -1,0 +1,323 @@
+/* editar.css - Estilos para página de edição */
+
+:root {
+  --bg-light: #f5f5f5;
+  --bg-white: #ffffff;
+  --text-dark: #333333;
+  --text-medium: #555555;
+  --text-light: #777777;
+  --accent: #0077cc;
+  --warning: #FFA500;
+  --border: #cccccc;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --success: #4CAF50;
+  --danger: #f44336;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-light), #eaeaea);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.menu a {
+  color: var(--text-medium);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 2em;
+  color: var(--text-dark);
+  margin-bottom: 30px;
+}
+
+/* =====================================
+   FORMULÁRIO DE EDIÇÃO
+===================================== */
+
+#form-editar {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 20px var(--shadow);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#form-editar label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+#form-editar input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+#form-editar input:focus {
+  outline: none;
+  border-color: var(--warning);
+  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
+}
+
+#form-editar input:hover:not(:focus) {
+  border-color: #999;
+}
+
+/* Estados de validação */
+#form-editar input:invalid:not(:placeholder-shown) {
+  border-color: var(--danger);
+}
+
+#form-editar input:valid:not(:placeholder-shown) {
+  border-color: var(--success);
+}
+
+/* =====================================
+   BOTÕES
+===================================== */
+
+.btn-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#btn {
+  flex: 1;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--warning), #ff8c00);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+}
+
+#btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 165, 0, 0.4);
+  background: linear-gradient(135deg, #ff8c00, #e67e00);
+}
+
+#btn:active {
+  transform: translateY(0);
+}
+
+.btn-cancelar {
+  flex: 1;
+  padding: 14px 20px;
+  background: #666;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-cancelar:hover {
+  background: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================
+   PREVIEW DA IMAGEM
+===================================== */
+
+.image-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 2px solid var(--border);
+  display: none;
+}
+
+.image-preview.visible {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =====================================
+   BADGE DE EDIÇÃO
+===================================== */
+
+.edit-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--warning), #ff8c00);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(255, 165, 0, 0.3);
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  background-color: #f0f0f0;
+  color: var(--text-light);
+  padding: 15px 0;
+  margin-top: auto;
+}
+
+/* =====================================
+   RESPONSIVIDADE
+===================================== */
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  #form-editar {
+    padding: 25px;
+  }
+
+  .btn-container {
+    flex-direction: column;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 20px 10px;
+  }
+
+  #form-editar {
+    padding: 20px;
+  }
+
+  #form-editar input {
+    font-size: 16px; /* Evita zoom no iOS */
+  }
+}
+
+/* =====================================
+   ANIMAÇÃO DE LOADING
+===================================== */
+
+#btn.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+#btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
