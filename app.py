@@ -1,14 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
+from urllib.parse import urlparse
 
 app = Flask(__name__)
+
+def validar_url_imagem(url):
+    try:
+        resultado = urlparse(url)
+        return all([resultado.scheme, resultado.netloc])
+    except:
+        return False
 
 def normalizar_preco(valor_str):
     valor_str = valor_str.strip()
     valor_str = valor_str.replace('.', '')
     valor_str = valor_str.replace(',', '.')
-
     return float(valor_str)
 
 def formatar_preco(valor):
@@ -46,7 +53,6 @@ def catalogo():
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = int(request.form['ano'])
-
         try:
             preco = normalizar_preco(request.form['preco'])
         except ValueError:
@@ -55,7 +61,7 @@ def catalogo():
 
         imagem = request.form['imagem']
 
-        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0:
+        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0 or not validar_url_imagem(imagem):
             conn.close()
             return redirect('/')
 
@@ -77,13 +83,7 @@ def catalogo():
 def infos(id):
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT id, modelo, ano, preco, imagem
-        FROM carros
-        WHERE id = ?
-    """, (id,))
-
+    cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros WHERE id = ?", (id,))
     row = cursor.fetchone()
     conn.close()
 
@@ -91,13 +91,9 @@ def infos(id):
         return "Carro não encontrado", 404
 
     carro = {
-        'id': row[0],
-        'modelo': row[1],
-        'ano': row[2],
-        'preco': formatar_preco(row[3]),
-        'imagem': row[4]
+        'id': row[0], 'modelo': row[1], 'ano': row[2],
+        'preco': formatar_preco(row[3]), 'imagem': row[4]
     }
-
     return render_template('carro.html', carro=carro)
 
 @app.route('/carros/<int:id>/delete', methods=['POST'])
@@ -118,7 +114,6 @@ def editar(id):
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = int(request.form['ano'])
-        
         try:
             preco = normalizar_preco(request.form['preco'])
         except ValueError:
@@ -127,7 +122,7 @@ def editar(id):
         
         imagem = request.form['imagem']
         
-        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0:
+        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0 or not validar_url_imagem(imagem):
             conn.close()
             return redirect(f'/carro/{id}/editar')
         
@@ -136,31 +131,18 @@ def editar(id):
             SET modelo = ?, ano = ?, preco = ?, imagem = ?
             WHERE id = ?
         """, (modelo, ano, preco, imagem, id))
-        
         conn.commit()
         conn.close()
         return redirect(f'/carro/{id}')
     
-    cursor.execute("""
-        SELECT id, modelo, ano, preco, imagem
-        FROM carros
-        WHERE id = ?
-    """, (id,))
-    
+    cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros WHERE id = ?", (id,))
     row = cursor.fetchone()
     conn.close()
     
     if row is None:
         return "Carro não encontrado", 404
     
-    carro = {
-        'id': row[0],
-        'modelo': row[1],
-        'ano': row[2],
-        'preco': row[3],
-        'imagem': row[4]
-    }
-    
+    carro = {'id': row[0], 'modelo': row[1], 'ano': row[2], 'preco': row[3], 'imagem': row[4]}
     return render_template('editar.html', carro=carro)
 
 if __name__ == '__main__':
