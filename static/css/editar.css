@@ -29,7 +29,6 @@ body {
 
 .header {
   background-color: var(--bg-white);
-  color: var(--text-dark);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -47,7 +46,7 @@ body {
   color: var(--text-medium);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: 0.3s;
 }
 
 .menu a:hover {
@@ -66,7 +65,6 @@ main {
 h3 {
   text-align: center;
   font-size: 2em;
-  color: var(--text-dark);
   margin-bottom: 30px;
 }
 
@@ -81,21 +79,9 @@ h3 {
   animation: slideUp 0.4s ease;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 #form-editar label {
   display: block;
   font-weight: 600;
-  color: var(--text-dark);
   margin-bottom: 8px;
   font-size: 14px;
 }
@@ -107,7 +93,7 @@ h3 {
   border-radius: 8px;
   font-size: 15px;
   margin-bottom: 20px;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   font-family: inherit;
 }
 
@@ -117,17 +103,9 @@ h3 {
   box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
 }
 
-#form-editar input:hover:not(:focus) {
-  border-color: #999;
-}
-
-#form-editar input:invalid:not(:placeholder-shown) {
-  border-color: var(--danger);
-}
-
-#form-editar input:valid:not(:placeholder-shown) {
-  border-color: var(--success);
-}
+#form-editar input:hover:not(:focus) { border-color: #999; }
+#form-editar input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+#form-editar input:valid:not(:placeholder-shown) { border-color: var(--success); }
 
 .btn-container {
   display: flex;
@@ -140,13 +118,13 @@ h3 {
   flex: 1;
   padding: 14px 20px;
   background: linear-gradient(135deg, var(--warning), #ff8c00);
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
 }
 
@@ -156,21 +134,17 @@ h3 {
   background: linear-gradient(135deg, #ff8c00, #e67e00);
 }
 
-#btn:active {
-  transform: translateY(0);
-}
-
 .btn-cancelar {
   flex: 1;
   padding: 14px 20px;
   background: #666;
-  color: white;
+  color: #fff;
   text-decoration: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   display: inline-block;
 }
 
@@ -195,15 +169,6 @@ h3 {
   animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .edit-badge {
   display: inline-block;
   background: linear-gradient(135deg, var(--warning), #ff8c00);
@@ -225,44 +190,18 @@ footer {
   margin-top: auto;
 }
 
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    padding: 15px;
-    text-align: center;
-  }
-
-  .menu {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  #form-editar {
-    padding: 25px;
-  }
-
-  .btn-container {
-    flex-direction: column;
-  }
-
-  h3 {
-    font-size: 1.5em;
-  }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
-  main {
-    padding: 20px 10px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  #form-editar {
-    padding: 20px;
-  }
-
-  #form-editar input {
-    font-size: 16px;
-  }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 #btn.loading {
@@ -285,8 +224,16 @@ footer {
   animation: spin 0.6s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+@media (max-width: 768px) {
+  .header { flex-direction: column; padding: 15px; }
+  .menu { flex-direction: column; gap: 10px; margin-top: 10px; }
+  #form-editar { padding: 25px; }
+  .btn-container { flex-direction: column; }
+  h3 { font-size: 1.5em; }
+}
+
+@media (max-width: 480px) {
+  main { padding: 20px 10px; }
+  #form-editar { padding: 20px; }
+  #form-editar input { font-size: 16px; }
 }

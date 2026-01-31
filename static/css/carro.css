@@ -17,13 +17,13 @@
 }
 
 body {
-  background: linear-gradient(135deg, var(--bg-light), #eaeaea);
+  background: linear-gradient(135deg, var(--bg-light), #eaeaea) fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-dark);
 }
 
 .header {
-  background-color: var(--bg-white);
+  background: var(--bg-white);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -56,9 +56,8 @@ body {
   padding: 80px 20px;
 }
 
-
 .card-detalhe {
-  background-color: var(--bg-white);
+  background: var(--bg-white);
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: 0 8px 20px var(--shadow);
@@ -105,16 +104,16 @@ body {
   margin-top: 20px;
   width: fit-content;
   padding: 10px 20px;
-  background-color: var(--accent);
-  color: white;
+  background: var(--accent);
+  color: #fff;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: 0.3s;
 }
 
 .card-info a:hover {
-  background-color: #005fa3;
+  background: #005fa3;
 }
 
 @media (max-width: 900px) {
@@ -123,7 +122,6 @@ body {
     align-items: center;
     text-align: center;
   }
-
   .card-detalhe img {
     width: 100%;
     height: 260px;
