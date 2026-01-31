@@ -29,19 +29,28 @@ def index():
 def catalogo():
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
-
     pagina = request.args.get('pagina', 1, type=int)
+    busca = request.args.get('busca', '').strip()
     por_pagina = 12
     offset = (pagina - 1) * por_pagina
 
-    cursor.execute("SELECT COUNT(*) FROM carros")
-    total_carros = cursor.fetchone()[0]
-    total_paginas = (total_carros + por_pagina - 1) // por_pagina
+    if busca:
+        filtro_sql = "WHERE modelo LIKE ?"
+        params = (f'%{busca}%',)
+    else:
+        filtro_sql = ""
+        params = ()
 
-    cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros LIMIT ? OFFSET ?", (por_pagina, offset))
+    cursor.execute(f"SELECT COUNT(*) FROM carros {filtro_sql}", params)
+    total_carros = cursor.fetchone()[0]
+    total_paginas = max(1, (total_carros + por_pagina - 1) // por_pagina)
+
+    query = f"SELECT id, modelo, ano, preco, imagem FROM carros {filtro_sql} LIMIT ? OFFSET ?"
+    cursor.execute(query, params + (por_pagina, offset))
+    rows = cursor.fetchall()
     
     carros = []
-    for id, modelo, ano, preco, imagem in cursor.fetchall():
+    for id, modelo, ano, preco, imagem in rows:
         carros.append({
             'id': id,
             'modelo': modelo,
@@ -51,33 +60,14 @@ def catalogo():
         })
 
     if request.method == 'POST':
-        modelo = request.form['modelo']
-        ano = int(request.form['ano'])
-        try:
-            preco = normalizar_preco(request.form['preco'])
-        except ValueError:
-            conn.close()
-            return redirect('/')
-
-        imagem = request.form['imagem']
-
-        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0 or not validar_url_imagem(imagem):
-            conn.close()
-            return redirect('/')
-
-        cursor.execute("""
-            INSERT INTO carros (modelo, ano, preco, imagem)
-            VALUES (?, ?, ?, ?)
-        """, (modelo, ano, preco, imagem))
-        conn.commit()
-        conn.close()
-        return redirect('/catalogo')
+        pass
 
     conn.close()
     return render_template('catalogo.html', 
                            carros=carros, 
                            pagina=pagina, 
-                           total_paginas=total_paginas)
+                           total_paginas=total_paginas,
+                           busca=busca)
 
 @app.route('/carro/<int:id>')
 def infos(id):
