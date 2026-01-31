@@ -2,7 +2,7 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Flask Version](https://img.shields.io/badge/flask-3.0-green)
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange)
+![Status](https://img.shields.io/badge/status-concluido-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Projeto de backend desenvolvido em **Python** para gerenciamento e controle de frota de veículos. O objetivo deste projeto é demonstrar a aplicação de **boas práticas**, arquitetura **REST** e **containerização** com Docker.
