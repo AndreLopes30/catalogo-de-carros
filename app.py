@@ -42,13 +42,38 @@ def index():
 def catalogo():
     conn = sqlite3.connect('carros.db')
     cursor = conn.cursor()
+
+    if request.method == 'POST':
+        modelo = request.form['modelo']
+        ano = int(request.form['ano'])
+        try:
+            preco = normalizar_preco(request.form['preco'])
+        except ValueError:
+            conn.close()
+            return redirect('/catalogo')
+        
+        imagem = request.form['imagem']
+        ano_atual = datetime.now().year
+        
+        if modelo == '' or ano < 1900 or ano > ano_atual + 1 or preco < 0:
+            conn.close()
+            return redirect('/catalogo')
+        
+        cursor.execute("""
+            INSERT INTO carros (modelo, ano, preco, imagem)
+            VALUES (?, ?, ?, ?)
+        """, (modelo, ano, preco, imagem))
+        conn.commit()
+        conn.close()
+        return redirect('/catalogo')
+
     pagina = request.args.get('pagina', 1, type=int)
     busca = request.args.get('busca', '').strip()
     por_pagina = 12
     offset = (pagina - 1) * por_pagina
 
     if busca:
-        filtro_sql = "WHERE modelo LIKE ? OR CAST(preco AS TEXT) LIKE ? OR CAST(ano AS TEXT) LIKE ?"
+        filtro_sql = "WHERE modelo LIKE ? OR ano LIKE ? OR preco LIKE ?"
         params = (f'%{busca}%', f'%{busca}%', f'%{busca}%')
     else:
         filtro_sql = ""
@@ -71,9 +96,6 @@ def catalogo():
             'preco': formatar_preco(preco),
             'imagem': imagem
         })
-
-    if request.method == 'POST':
-        pass
 
     conn.close()
     return render_template('catalogo.html', 
