@@ -36,9 +36,9 @@ Projeto de backend desenvolvido em **Python** para gerenciamento e controle de f
 | :--- | :--- | :--- |
 | `GET` | `/` | Página inicial do sistema |
 | `GET` | `/catalogo` | Exibe todos os veículos cadastrados |
-| `POST` | `/carro/novo` | Adiciona um novo carro |
+| `POST` | `/catalogo` | Adiciona um novo carro |
 | `GET/POST` | `/carro/<id>/editar` | Visualiza e salva alterações de um veículo |
-| `DELETE` | `/carro/<id>` | Remove um veículo do sistema |
+| `DELETE` | `/carros/<id>/delete` | Remove um veículo do sistema |
 
 ---
 

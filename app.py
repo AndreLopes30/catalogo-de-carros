@@ -171,6 +171,19 @@ def editar(id):
     carro = {'id': row[0], 'modelo': row[1], 'ano': row[2], 'preco': row[3], 'imagem': row[4]}
     return render_template('editar.html', carro=carro)
 
+def init_db():
+    with sqlite3.connect('carros.db') as conn:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS carros (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                modelo TEXT NOT NULL,
+                ano INTEGER NOT NULL,
+                preco REAL NOT NULL,
+                imagem TEXT NOT NULL
+            )
+        ''')
+
 if __name__ == '__main__':
+    init_db()
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
