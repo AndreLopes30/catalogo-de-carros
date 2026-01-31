@@ -1,13 +1,3 @@
-const lixo = document.getElementById("lixo")
-
-lixo.addEventListener("click", function(e) {
-    e.preventDefault();
-    filtro.value = '';
-    cards.forEach(card => {
-        card.style.removeProperty('display');
-    });
-});
-
 function confirmarExclusao(id, modelo) {
     console.log("Acionado exclusão para ID:", id);
     Swal.fire({
