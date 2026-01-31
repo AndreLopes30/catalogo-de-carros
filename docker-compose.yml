@@ -1,15 +1,6 @@
 version: "3.8"
 
 services:
-  db:
-    image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: catalogo_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-
   web:
     build: .
     command: python app.py
@@ -18,9 +9,4 @@ services:
     ports:
       - "5000:5000"
     environment:
-      DATABASE_URL: postgresql://user:pass@db:5432/catalogo_db
-    depends_on:
-      - db
-
-volumes:
-  postgres_data:
+      PORT: "5000"
