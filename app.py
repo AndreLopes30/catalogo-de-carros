@@ -48,8 +48,8 @@ def catalogo():
     offset = (pagina - 1) * por_pagina
 
     if busca:
-        filtro_sql = "WHERE modelo LIKE ?"
-        params = (f'%{busca}%',)
+        filtro_sql = "WHERE modelo LIKE ? OR CAST(preco AS TEXT) LIKE ? OR CAST(ano AS TEXT) LIKE ?"
+        params = (f'%{busca}%', f'%{busca}%', f'%{busca}%')
     else:
         filtro_sql = ""
         params = ()

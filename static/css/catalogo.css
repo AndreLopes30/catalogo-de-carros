@@ -222,12 +222,32 @@ p {
 }
 
 #form-filtro {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 500px;
 }
 
-#lixo {
-  height: 25px;
+#filtro {
+    width: 100%;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+#filtro:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.15);
+    width: 105%;
+}
+
+#filtro::placeholder {
+    color: #999;
+    font-style: italic;
 }
 
 .delete-form {
