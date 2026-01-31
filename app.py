@@ -2,13 +2,26 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 from urllib.parse import urlparse
+import requests
+from PIL import Image
+from io import BytesIO
+from datetime import datetime
 
 app = Flask(__name__)
 
-def validar_url_imagem(url):
+def validar_url_imagem(url, timeout=3):
     try:
         resultado = urlparse(url)
-        return all([resultado.scheme, resultado.netloc])
+        if not all([resultado.scheme, resultado.netloc]):
+            return False
+        
+        response = requests.head(url, timeout=timeout, allow_redirects=True)
+        content_type = response.headers.get('content-type', '')
+        
+        if 'image' not in content_type.lower():
+            return False
+            
+        return True
     except:
         return False
 
@@ -111,8 +124,9 @@ def editar(id):
             return redirect(f'/carro/{id}/editar')
         
         imagem = request.form['imagem']
+        ano_atual = datetime.now().year
         
-        if modelo == '' or ano < 1900 or ano > 2026 or preco < 0 or not validar_url_imagem(imagem):
+        if modelo == '' or ano < 1900 or ano > ano_atual + 1 or preco < 0 or not validar_url_imagem(imagem):
             conn.close()
             return redirect(f'/carro/{id}/editar')
         
