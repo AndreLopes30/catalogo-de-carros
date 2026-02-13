@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for
 import sqlite3
 from datetime import datetime
 from app import app, validar_url_imagem, normalizar_preco, formatar_preco
+from app.database import db_path
 
 @app.route('/')
 def index():
@@ -9,7 +10,7 @@ def index():
 
 @app.route('/catalogo', methods=['GET', 'POST'])
 def catalogo():
-    conn = sqlite3.connect('carros.db')
+    conn = sqlite3.connect(db_path) 
     cursor = conn.cursor()
 
     if request.method == 'POST':
@@ -59,7 +60,7 @@ def catalogo():
 
 @app.route('/carro/<int:id>')
 def infos(id):
-    conn = sqlite3.connect('carros.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("SELECT id, modelo, ano, preco, imagem FROM carros WHERE id = ?", (id,))
     row = cursor.fetchone()
@@ -71,7 +72,7 @@ def infos(id):
 @app.route('/carros/<int:id>/delete', methods=['POST'])
 def delete(id):
     pagina_atual = request.args.get('pagina', 1, type=int)
-    conn = sqlite3.connect('carros.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("DELETE FROM carros WHERE id = ?", (id,))
     conn.commit()
@@ -80,7 +81,7 @@ def delete(id):
 
 @app.route('/carro/<int:id>/editar', methods=['GET', 'POST'])
 def editar(id):
-    conn = sqlite3.connect('carros.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     if request.method == 'POST':
